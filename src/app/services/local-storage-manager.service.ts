@@ -1,4 +1,3 @@
-import { templateJitUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ISavedCity } from '../interfaces/saved-city.interface';
