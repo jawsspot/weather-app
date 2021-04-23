@@ -1,0 +1,7 @@
+<div>
+    <app-city-list *ngIf='!searchEnabled'></app-city-list>
+    <app-search-city *ngIf='searchEnabled' [searchEnabled]='searchEnabled'></app-search-city>
+</div>
+<div (click)="toggleSearch()">O</div>
+
+
