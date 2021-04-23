@@ -1,1 +1,3 @@
-<p>citi-list works!</p>
+<div *ngFor='let item of listSavedCities'>
+    <p (click)='selectCity(item)'>{{item.name}}</p>
+</div>

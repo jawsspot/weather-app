@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { CityWeatherViewModel } from 'src/app/models/city-weather.view-model';
+import { SavedCityViewModel } from 'src/app/models/saved-citiy.view-model';
+import { LocalStorageManagerService } from 'src/app/services/local-storage-manager.service';
 import { RequestService } from 'src/app/services/request-service.service';
 
 @Component({
@@ -9,12 +12,13 @@ import { RequestService } from 'src/app/services/request-service.service';
     styleUrls: ['./search-city.component.scss']
 })
 export class SearchCityComponent implements OnInit {
-
     @Input()
     public searchEnabled: boolean;
     public searchString: FormControl;
-    private urlCitySearch: string;
-    constructor(private requestService: RequestService) {
+    public searchResults: CityWeatherViewModel;
+    public empty: string;
+
+    constructor(private requestService: RequestService, private localStorageManagerService: LocalStorageManagerService) {
         this.searchString = new FormControl('');
     }
 
@@ -22,8 +26,19 @@ export class SearchCityComponent implements OnInit {
     }
 
     public search(): void {
-        this.requestService.searchCity(this.searchString.value)
-            .subscribe((data) => console.log(data))
+        this.requestService.getDataCity(this.searchString.value)
+            .subscribe((data: CityWeatherViewModel) => {
+                this.searchResults = data;
+                this.empty = null;
+            }, (err) => {
+                this.empty = 'город не найден';
+            });
+    }
+
+    public addToCityList(): void {
+        const city = new SavedCityViewModel(this.searchResults);
+        // city.current = true;
+        this.localStorageManagerService.setToLocalStorage(city);
     }
 
 }

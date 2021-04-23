@@ -1,8 +1,10 @@
-<form >
-    <input  type="text" [formControl]="searchString">
-</form>
+<input  type="text" [formControl]="searchString">
 <button (click)="search()" >Current</button>
 
-<div>
-    
+<div *ngIf='empty'>{{empty}}</div>
+<div *ngIf='searchResults' class="search_string">
+    <div>{{searchResults.name}}</div>
+    <div>{{searchResults.temp}}</div>
+    <div>{{searchResults.description}}</div>
+    <button (click)='addToCityList()'>+</button>    
 </div>

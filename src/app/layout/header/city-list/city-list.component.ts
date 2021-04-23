@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SavedCityViewModel } from 'src/app/models/saved-citiy.view-model';
+import { LocalStorageManagerService } from 'src/app/services/local-storage-manager.service';
 
 @Component({
     selector: 'app-city-list',
@@ -6,13 +8,16 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./city-list.component.scss']
 })
 export class CityListComponent implements OnInit {
+    public listSavedCities: SavedCityViewModel[];
 
-    constructor() { }
+    constructor(private localStorageManagerService: LocalStorageManagerService) { }
 
     public ngOnInit(): void {
-
+        this.listSavedCities = this.localStorageManagerService.getCitiesFromLocalStorage();
     }
 
-
+    public selectCity(city: SavedCityViewModel) {
+        this.localStorageManagerService.toggleCurrentCity(city);
+    }
 
 }
