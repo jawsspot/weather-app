@@ -13,11 +13,19 @@ export class CityListComponent implements OnInit {
     constructor(private localStorageManagerService: LocalStorageManagerService) { }
 
     public ngOnInit(): void {
+        this.localStorageManagerService.refresh.subscribe(() => {
+            this.listSavedCities = this.localStorageManagerService.getCitiesFromLocalStorage();
+        });
+
         this.listSavedCities = this.localStorageManagerService.getCitiesFromLocalStorage();
     }
 
-    public selectCity(city: SavedCityViewModel) {
+    public selectCity(city: SavedCityViewModel): void {
         this.localStorageManagerService.toggleCurrentCity(city);
+    }
+
+    public removeCity(item: SavedCityViewModel): void {
+        this.localStorageManagerService.removeCity(item);
     }
 
 }

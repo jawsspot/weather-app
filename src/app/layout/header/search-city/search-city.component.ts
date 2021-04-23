@@ -26,7 +26,7 @@ export class SearchCityComponent implements OnInit {
     }
 
     public search(): void {
-        this.requestService.getDataCity(this.searchString.value)
+        this.requestService.getDataCityForHead(this.searchString.value)
             .subscribe((data: CityWeatherViewModel) => {
                 this.searchResults = data;
                 this.empty = null;
@@ -37,8 +37,8 @@ export class SearchCityComponent implements OnInit {
 
     public addToCityList(): void {
         const city = new SavedCityViewModel(this.searchResults);
-        // city.current = true;
         this.localStorageManagerService.setToLocalStorage(city);
+        this.searchResults = null;
     }
 
 }

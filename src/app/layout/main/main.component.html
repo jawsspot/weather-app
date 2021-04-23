@@ -1,4 +1,19 @@
 <div class="container">
-{{currentCities.name}}
+<h1>{{currentCity.name}}</h1>
+<div *ngIf='dataWeather'>
+    <h2>Страна:{{dataWeather.country}}</h2>
+
+    <div>Ощущается как:{{dataWeather.feelsLike}}</div>
+    <div>Температура:{{dataWeather.temp}}</div>
+    <div>Ночью:{{dataWeather.tempMin}}</div>
+    <div>Днём{{dataWeather.tempMax}}</div>
+    <div>Влажность:{{dataWeather.humidity}}</div>
+    <div>Скорость ветра:{{dataWeather.windSpeed}}</div>
+    <div>Видимость:{{dataWeather.visibility}}</div>
+    <div>Восход{{dataWeather.sunrise}}</div>
+    <div>Закат{{dataWeather.sunset}}</div>
+</div>
+
+
 </div>
 

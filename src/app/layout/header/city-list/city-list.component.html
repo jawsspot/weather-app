@@ -1,3 +1,4 @@
 <div *ngFor='let item of listSavedCities'>
     <p (click)='selectCity(item)'>{{item.name}}</p>
+    <button (click)='removeCity(item)'>x</button>
 </div>

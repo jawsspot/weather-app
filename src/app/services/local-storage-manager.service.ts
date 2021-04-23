@@ -1,5 +1,6 @@
 import { templateJitUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ISavedCity } from '../interfaces/saved-city.interface';
 import { SavedCityViewModel } from '../models/saved-citiy.view-model';
 
@@ -7,7 +8,7 @@ import { SavedCityViewModel } from '../models/saved-citiy.view-model';
     providedIn: 'root'
 })
 export class LocalStorageManagerService {
-
+    public refresh: Subject<any> = new Subject();
     constructor() { }
 
     public setToLocalStorage(item: SavedCityViewModel): void {
@@ -32,7 +33,11 @@ export class LocalStorageManagerService {
 
         const toLocalStorage = JSON.stringify(cityList);
         localStorage.setItem('cityList', toLocalStorage);
+
+        this.refresh.next();
     }
+
+
 
     /** Получаем список сохранённых городов */
     public getCitiesFromLocalStorage(): SavedCityViewModel[] {
@@ -46,22 +51,33 @@ export class LocalStorageManagerService {
 
     public toggleCurrentCity(item: SavedCityViewModel): void {
         item.current = true;
-
         let cityList: SavedCityViewModel[] = [];
         const listInLocalStorage: SavedCityViewModel[] = JSON.parse(localStorage.getItem('cityList'));
 
         if (listInLocalStorage) {
-
-            listInLocalStorage.forEach((v: SavedCityViewModel): void => { v.current = false; });
             listInLocalStorage.forEach((v: SavedCityViewModel): void => {
                 if (v.name === item.name) {
                     v.current = true;
+                } else {
+                    v.current = false;
                 }
             });
-
             cityList = cityList.concat(listInLocalStorage);
             const toLocalStorage = JSON.stringify(cityList);
             localStorage.setItem('cityList', toLocalStorage);
         }
+        this.refresh.next();
+    }
+
+    public removeCity(item: SavedCityViewModel): void {
+        let cityList: SavedCityViewModel[] = [];
+        let listInLocalStorage: SavedCityViewModel[] = JSON.parse(localStorage.getItem('cityList'));
+        listInLocalStorage = listInLocalStorage.filter(value => value.name !== item.name);
+        cityList = cityList.concat(listInLocalStorage);
+        const toLocalStorage = JSON.stringify(cityList);
+        localStorage.clear();
+        localStorage.setItem('cityList', toLocalStorage);
+        
+        this.refresh.next();
     }
 }

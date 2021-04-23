@@ -5,6 +5,7 @@ import { switchMap } from 'rxjs/operators';
 import { ISavedCity } from '../interfaces/saved-city.interface';
 import { IWeatherOfCity } from '../interfaces/weather-response.interface';
 import { CityWeatherViewModel } from '../models/city-weather.view-model';
+import { CurrentWeatherViewModel } from '../models/current-weather.view-model';
 import { SavedCityViewModel } from '../models/saved-citiy.view-model';
 
 const API_KEY: string = encodeURIComponent('c3bd662b29ae337317d3b9882d6cede6');
@@ -14,34 +15,39 @@ const API_KEY: string = encodeURIComponent('c3bd662b29ae337317d3b9882d6cede6');
 })
 export class RequestService {
 
-    private urlCitySearch: string;
+    private static urlCitySearch = 'https://api.openweathermap.org/data/2.5/weather';
 
     constructor(private http: HttpClient) {
-        this.urlCitySearch = 'https://api.openweathermap.org/data/2.5/weather';
     }
+    /** Получаем данные для поисковой строки  */
 
-    public getDataCity(city: string): Observable<CityWeatherViewModel | any> {
+    public getDataCityForHead(city: string): Observable<CityWeatherViewModel | any> {
         return this.http.get(
-            this.urlCitySearch, { params: { q: city, appid: API_KEY, units: 'metric' } }
+            RequestService.urlCitySearch, { params: { q: city, appid: API_KEY, units: 'metric' } }
         ).pipe(
             switchMap((data: IWeatherOfCity) => {
                 return of(new CityWeatherViewModel(data));
             })
         );
     }
-
+    /** Для списка сохранённых городов */
     public searchCity(city: string): Observable<SavedCityViewModel | any> {
         return this.http.get(
-            this.urlCitySearch, { params: { q: city, appid: API_KEY, units: 'metric' } }
+            RequestService.urlCitySearch, { params: { q: city, appid: API_KEY, units: 'metric' } }
         ).pipe(
             switchMap((data: ISavedCity) => {
                 return of(new SavedCityViewModel(data));
             })
         );
     }
-}
-
-export interface ResponseModelCitySearch {
-    query: string;
-
+    /** */
+    public getDataCityForMain(city: string): Observable<CityWeatherViewModel | any> {
+        return this.http.get(
+            RequestService.urlCitySearch, { params: { q: city, appid: API_KEY, units: 'metric' } }
+        ).pipe(
+            switchMap((data: IWeatherOfCity) => {
+                return of(new CurrentWeatherViewModel(data));
+            })
+        );
+    }
 }
