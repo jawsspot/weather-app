@@ -21,7 +21,6 @@ export class SearchCityComponent implements OnInit {
     constructor(private requestService: RequestService, private localStorageManagerService: LocalStorageManagerService) {
         this.searchString = new FormControl('');
     }
-
     public ngOnInit(): void {
     }
 
