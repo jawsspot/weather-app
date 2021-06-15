@@ -1,10 +1,21 @@
-<input  type="text" [formControl]="searchString">
-<button (click)="search()" >Current</button>
+<mat-form-field class="example-form-field">
+  
+
+<mat-label>Clearable input</mat-label>
+<input matInput type="text" [formControl]="searchString">
+<button  matSuffix mat-icon-button aria-label="Clear" >
+    <!-- <mat-icon>close</mat-icon> -->
+</button>
+</mat-form-field>
+<button mat-raised-button  (click)="search()" >search</button>
 
 <div *ngIf='empty'>{{empty}}</div>
 <div *ngIf='searchResults' class="search_string">
     <div>{{searchResults.name}}</div>
     <div>{{searchResults.temp}}</div>
     <div>{{searchResults.description}}</div>
-    <button (click)='addToCityList()'>+</button>    
+    <button mat-button color="primary" (click)='addToCityList()'>Добавить</button>    
 </div>
+
+
+

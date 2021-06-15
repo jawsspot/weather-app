@@ -11,6 +11,10 @@ import { SearchCityComponent } from './layout/header/search-city/search-city.com
 import { CityListComponent } from './layout/header/city-list/city-list.component';
 import { LocalStorageManagerService } from './services/local-storage-manager.service';
 import { RequestService } from './services/request-service.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input'
 
 
 @NgModule({
@@ -27,7 +31,11 @@ import { RequestService } from './services/request-service.service';
         ReactiveFormsModule,
         BrowserModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule
     ],
     providers: [
         LocalStorageManagerService,
