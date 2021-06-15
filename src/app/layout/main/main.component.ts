@@ -35,7 +35,7 @@ export class MainComponent implements OnInit {
     }
 
     private getWeather(): void {
-        this.requestService.getDataCityForMain(this.currentCity.name)
+        this.requestService.getCurrentWeatherInfo(this.currentCity.name)
             .pipe(
                 tap((data: CurrentWeatherViewModel): void => {
                     this.dataWeather = data;

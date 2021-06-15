@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { CityWeatherViewModel } from 'src/app/models/city-weather.view-model';
+import { CurrentWeatherViewModel } from 'src/app/models/current-weather.view-model';
 import { SavedCityViewModel } from 'src/app/models/saved-citiy.view-model';
 import { LocalStorageManagerService } from 'src/app/services/local-storage-manager.service';
 import { RequestService } from 'src/app/services/request-service.service';
@@ -15,7 +15,7 @@ export class SearchCityComponent implements OnInit {
     @Input()
     public searchEnabled: boolean;
     public searchString: FormControl;
-    public searchResults: CityWeatherViewModel;
+    public searchResults: CurrentWeatherViewModel;
     public empty: string;
 
     constructor(private requestService: RequestService, private localStorageManagerService: LocalStorageManagerService) {
@@ -26,8 +26,8 @@ export class SearchCityComponent implements OnInit {
     }
 
     public search(): void {
-        this.requestService.getDataCityForHead(this.searchString.value)
-            .subscribe((data: CityWeatherViewModel) => {
+        this.requestService.getCurrentWeatherInfo(this.searchString.value)
+            .subscribe((data: CurrentWeatherViewModel) => {
                 this.searchResults = data;
                 this.empty = null;
             }, (err) => {

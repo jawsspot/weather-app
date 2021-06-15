@@ -9,7 +9,7 @@ export interface IWeatherOfCity {
         lon: number;
     };
     dt: number;
-    if: number;
+    id: number;
     main: {
         feels_like: number;
         humidity: number;
@@ -32,12 +32,17 @@ export interface IWeatherOfCity {
     wind: {
         deg: number;
         speed: number;
+        gust: number;
     };
 }
 
-interface IWeatherDetails {
+export interface IWeatherDetails {
     description: string;
     icon: string;
     id: number;
     main: string;
+}
+export interface ICoordinates {
+    lat: number;
+    lon: number
 }
