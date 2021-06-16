@@ -1,12 +1,23 @@
-<mat-form-field class="example-form-field">
-  
+<form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Number</mat-label>
+      <input type="text"
+             placeholder="Pick one"
+             aria-label="Number"
+             matInput
+             [formControl]="searchStringControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
 
-<mat-label>Clearable input</mat-label>
-<input matInput type="text" [formControl]="searchString">
-<button  matSuffix mat-icon-button aria-label="Clear" >
-    <!-- <mat-icon>close</mat-icon> -->
-</button>
-</mat-form-field>
+
+
+
 <button mat-raised-button  (click)="search()" >search</button>
 
 <div *ngIf='empty'>{{empty}}</div>

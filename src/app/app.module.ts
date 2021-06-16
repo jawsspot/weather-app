@@ -12,10 +12,10 @@ import { CityListComponent } from './layout/header/city-list/city-list.component
 import { LocalStorageManagerService } from './services/local-storage-manager.service';
 import { RequestService } from './services/request-service.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatFormFieldModule} from '@angular/material/form-field'
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input'
-
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input'
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
     declarations: [
@@ -35,7 +35,8 @@ import {MatInputModule} from '@angular/material/input'
         BrowserAnimationsModule,
         MatFormFieldModule,
         MatButtonModule,
-        MatInputModule
+        MatInputModule,
+        MatAutocompleteModule
     ],
     providers: [
         LocalStorageManagerService,
